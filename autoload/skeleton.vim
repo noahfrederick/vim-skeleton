@@ -32,11 +32,14 @@ function! skeleton#Load(type, filename)
     return
   endif
 
-  " Look for template named after containing directory with extension
-  if ! skeleton#ReadTemplate(substitute(fnamemodify(a:filename, ':h:t'), '\W', '_', 'g').'.'.a:type)
-    " Look for generic template with extension
-    if ! skeleton#ReadTemplate('skel.'.a:type)
-      return
+  " Use custom template name if custom function is defined
+  if ! exists('*SkeletonCustomTemplate_'.a:type) || ! skeleton#ReadTemplate(SkeletonCustomTemplate_{a:type}())
+    " Look for template named after containing directory with extension
+    if ! skeleton#ReadTemplate(substitute(fnamemodify(a:filename, ':h:t'), '\W', '_', 'g').'.'.a:type)
+      " Look for generic template with extension
+      if ! skeleton#ReadTemplate('skel.'.a:type)
+        return
+      endif
     endif
   endif
 
