@@ -29,7 +29,7 @@ endfunction
 function! skeleton#Load(type, filename)
   " Abort if buffer is non-empty or file already exists
   if ! (line('$') == 1 && getline('$') == '') || filereadable(a:filename)
-    return
+    return 1
   endif
 
   " Use custom template name if custom function is defined
@@ -38,7 +38,7 @@ function! skeleton#Load(type, filename)
     if ! skeleton#ReadTemplate(substitute(fnamemodify(a:filename, ':h:t'), '\W', '_', 'g').'.'.a:type)
       " Look for generic template with extension
       if ! skeleton#ReadTemplate('skel.'.a:type)
-        return
+        return 2
       endif
     endif
   endif
@@ -82,7 +82,9 @@ function! skeleton#DoDefaultReplacements(filename)
   normal! zn
 
   " Delete extra line
-  $ delete
+  if getline('$') ==# ''
+    $ delete
+  endif
   if line('$') > &lines
     1
   endif
