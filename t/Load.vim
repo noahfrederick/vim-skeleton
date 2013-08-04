@@ -1,15 +1,25 @@
 let g:skeleton_test_dir = 't'
 let g:skeleton_template_dir = g:skeleton_test_dir . '/templates'
-let g:skeleton_called_custom_template_func = 0
 
 function! SkeletonCustomTemplate_custom(filename)
   let g:skeleton_called_custom_template_func = 1
   return 'custom.txt'
 endfunction
 
+function! SkeletonCustomReplace(filename)
+  let g:skeleton_called_custom_replace_func = 1
+endfunction
+
+function! SkeletonCustomReplace_custom(filename)
+  let g:skeleton_called_custom_replace_filetype_func = 1
+endfunction
+
 describe 'skeleton#Load'
   before
     new
+    let g:skeleton_called_custom_template_func = 0
+    let g:skeleton_called_custom_replace_func = 0
+    let g:skeleton_called_custom_replace_filetype_func = 0
   end
 
   after
@@ -76,5 +86,15 @@ describe 'skeleton#Load'
     Expect filereadable(g:skeleton_template_dir.'/skel.txt') == 1
     let result = skeleton#Load('txt', 'test.txt')
     Expect result == 1
+  end
+
+  it 'calls a custom replace function if it exists'
+    call skeleton#Load('txt', 'test.txt')
+    Expect g:skeleton_called_custom_replace_func == 1
+  end
+
+  it 'calls a custom filetype replace function if it exists'
+    call skeleton#Load('custom', 'test.txt')
+    Expect g:skeleton_called_custom_replace_filetype_func == 1
   end
 end
