@@ -1,8 +1,5 @@
-" Skeleton:    Read in template based on file type
+" Skeleton:    Initialize new Vim buffers with file-type-specific templates
 " Maintainer:  Noah Frederick (http://noahfrederick.com)
-" Notes:       Based on tpope's ztemplate.vim and godlygeek's snippets.vim
-"              https://github.com/tpope/tpope/blob/master/.vim/plugin/ztemplate.vim
-"              https://github.com/godlygeek/vim-files/blob/master/plugin/snippets.vim
 
 function! skeleton#LoadByFilename(filename)
   let ext = fnamemodify(a:filename, ':e')
