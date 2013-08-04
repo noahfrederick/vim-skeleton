@@ -10,9 +10,9 @@ function! skeleton#LoadByFilename(filename)
     let ext = (fnamemodify(a:filename, ':t'))
   endif
   if ext =~ '['
-    return
+    return -2
   endif
-  call skeleton#Load(ext, a:filename)
+  return skeleton#Load(ext, a:filename)
 endfunction
 
 function! skeleton#LoadByFiletype(type, filename)
@@ -23,13 +23,13 @@ function! skeleton#LoadByFiletype(type, filename)
   else
     let ext = a:type
   endif
-  call skeleton#Load(ext, a:filename)
+  return skeleton#Load(ext, a:filename)
 endfunction
 
 function! skeleton#Load(type, filename)
   " Abort if buffer is non-empty or file already exists
   if ! (line('$') == 1 && getline('$') == '') || filereadable(a:filename)
-    return 1
+    return -1
   endif
 
   " Use custom template name if custom function is defined
@@ -38,7 +38,7 @@ function! skeleton#Load(type, filename)
     if ! skeleton#ReadTemplate(substitute(fnamemodify(a:filename, ':h:t'), '\W', '_', 'g').'.'.a:type)
       " Look for generic template with extension
       if ! skeleton#ReadTemplate('skel.'.a:type)
-        return 2
+        return 0
       endif
     endif
   endif
@@ -55,6 +55,8 @@ function! skeleton#Load(type, filename)
 
   " Do the default replacements including positioning the cursor
   call skeleton#DoDefaultReplacements(a:filename)
+
+  return 1
 endfunction
 
 function! skeleton#ReadTemplate(filename) abort
