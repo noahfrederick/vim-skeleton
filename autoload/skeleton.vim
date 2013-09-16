@@ -84,7 +84,7 @@ function! skeleton#DoDefaultReplacements(filename)
 
   " Delete extra line
   if getline('$') ==# ''
-    $ delete
+    $ delete _
   endif
   if line('$') > &lines
     1
