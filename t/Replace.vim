@@ -26,4 +26,9 @@ describe 'skeleton#Replace'
     Expect getline(3) ==# '3: Start: .'
     Expect end_pos[1] == 3
   end
+
+  it 'is case sensitive'
+    call skeleton#Replace('me', 'my name')
+    Expect getline(1) ==# '1: Replace @ME@.'
+  end
 end
