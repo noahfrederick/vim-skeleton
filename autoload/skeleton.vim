@@ -17,6 +17,8 @@ function! skeleton#LoadByFiletype(type, filename)
     let ext = 'py'
   elseif a:type == 'ruby'
     let ext = 'rb'
+  elseif a:type == 'yaml'
+    let ext = 'yml'
   else
     let ext = a:type
   endif
