@@ -1,0 +1,25 @@
+*skeleton.txt*  Initialize new Vim buffers with file-type-specific templates
+
+Author:   Noah Frederick <http://noahfrederick.com>
+License:  Same terms as Vim itself (see |license|)
+
+This plugin is only available if 'compatible' is not set.
+
+==============================================================================
+INTRODUCTION					*skeleton*
+
+Use Vim as a notebook or journal: logbook.vim makes it easy to keep daily logs
+in Markdown format (or any other format).
+
+Sorry, the rest of the help document is coming soon.
+
+==============================================================================
+ABOUT						*skeleton-about*
+
+You can find the latest version of this plugin on GitHub:
+https://github.com/noahfrederick/vim-skeleton
+
+Please report issues on GitHub as well:
+https://github.com/noahfrederick/vim-skeleton/issues
+
+ vim:tw=78:ts=8:ft=help:norl:
