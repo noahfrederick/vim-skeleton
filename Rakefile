@@ -2,12 +2,15 @@
 
 require 'rake/packagetask'
 
+desc 'Target for CI server'
 task :ci => [:dump, :test]
 
+desc 'Dump Vim\'s version info'
 task :dump do
   sh 'vim --version'
 end
 
+desc 'Run tests with vspec'
 task :test do
   sh 'bundle exec vim-flavor test'
 end
