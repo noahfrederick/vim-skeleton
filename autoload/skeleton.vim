@@ -11,6 +11,10 @@ if !exists('g:skeleton_template_dir')
   let g:skeleton_template_dir = '~/.vim/templates'
 endif
 
+function! s:template_path(filename)
+  return expand(join([g:skeleton_template_dir, a:filename], '/'))
+endfunction
+
 function! skeleton#LoadByFilename(filename)
   let ext = fnamemodify(a:filename, ':e')
   if ext == ''
@@ -69,13 +73,13 @@ function! skeleton#Load(type, filename)
 endfunction
 
 function! skeleton#ReadTemplate(filename) abort
-  let b:skeleton_template_file = g:skeleton_template_dir.'/'.a:filename
-  if !filereadable(expand(b:skeleton_template_file))
+  let b:skeleton_template_file = a:filename
+  if !filereadable(s:template_path(b:skeleton_template_file))
     return 0
   endif
   let cpopts = &cpoptions
   set cpoptions-=a
-  silent execute '0read '.b:skeleton_template_file
+  silent execute '0read '.s:template_path(b:skeleton_template_file)
   let &cpoptions = cpopts
   return 1
 endfunction
@@ -107,9 +111,14 @@ function! skeleton#Replace(placeholder, replacement)
   silent! execute '%substitute/@'.a:placeholder.'@/'.a:replacement.'/g'
 endfunction
 
+function! skeleton#EditTemplate(tmpl, cmd)
+  let path = s:template_path(a:tmpl)
+  return join([a:cmd, path])
+endfunction
+
 function! skeleton#EditCurrentTemplate(cmd)
   if !exists('b:skeleton_template_file')
     return "echoerr 'No template is associated with this buffer'"
   endif
-  return a:cmd.' '.b:skeleton_template_file
+  return skeleton#EditTemplate(b:skeleton_template_file, a:cmd)
 endfunction

@@ -24,6 +24,6 @@ describe 'skeleton#ReadTemplate'
 
   it 'sets b:skeleton_template_file'
     call skeleton#ReadTemplate('skel.txt')
-    Expect b:skeleton_template_file ==# g:skeleton_template_dir . '/skel.txt'
+    Expect b:skeleton_template_file ==# 'skel.txt'
   end
 end
