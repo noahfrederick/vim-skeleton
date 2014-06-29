@@ -38,16 +38,6 @@ let g:loaded_skeleton = 1
 "
 " This plug-in is only available if 'compatible' is not set.
 
-if !exists('g:skeleton_template_dir')
-  ""
-  " The directory that contains skeleton template files. Example:
-  " >
-  "   let g:skeleton_template_dir = "~/.vim/templates"
-  " <
-  " Default: "~/.vim/templates"
-  let g:skeleton_template_dir = '~/.vim/templates'
-endif
-
 augroup Skeleton
   autocmd!
   autocmd BufNewFile * call skeleton#LoadByFilename(expand('<amatch>'))

@@ -1,6 +1,16 @@
 " Skeleton:    Initialize new Vim buffers with file-type-specific templates
 " Maintainer:  Noah Frederick (http://noahfrederick.com)
 
+if !exists('g:skeleton_template_dir')
+  ""
+  " The directory that contains skeleton template files. Example:
+  " >
+  "   let g:skeleton_template_dir = "~/.vim/templates"
+  " <
+  " Default: "~/.vim/templates"
+  let g:skeleton_template_dir = '~/.vim/templates'
+endif
+
 function! skeleton#LoadByFilename(filename)
   let ext = fnamemodify(a:filename, ':e')
   if ext == ''
