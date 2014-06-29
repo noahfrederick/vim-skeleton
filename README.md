@@ -60,9 +60,33 @@ changed (see `:help skeleton-configuration`).
 
 To get started, try:
 
-    mkdir -p ~/.vim/templates
+	mkdir -p ~/.vim/templates
 	echo "Hello world" > ~/.vim/templates/skel.txt
 	vim hello.txt
+
+## Development
+
+### Testing
+
+Tests are written for [vspec][vspec], which can be installed via
+[vim-flavor][vim-flavor]:
+
+	bundle install
+	vim-flavor install
+
+The test suite can then be run via the rake task:
+
+	rake test
+
+### Documentation
+
+The documentation in `doc/` is generated from the plug-in source code via
+[vimdoc][vimdoc]. Do not edit `doc/skeleton.txt` directly. Refer to the
+existing inline documentation as a guide for documenting new code.
+
+The help doc can be rebuilt by running:
+
+	vimdoc ./
 
 ## Credits & License
 
@@ -76,3 +100,6 @@ license`).
 [ztemplate]: https://github.com/tpope/tpope/blob/master/.vim/plugin/ztemplate.vim
 [snippets]: https://github.com/godlygeek/vim-files/blob/master/plugin/snippets.vim
 [home]: http://noahfrederick.com/
+[vspec]: https://github.com/kana/vim-vspec
+[vim-flavor]: https://github.com/kana/vim-flavor
+[vimdoc]: https://github.com/google/vimdoc
