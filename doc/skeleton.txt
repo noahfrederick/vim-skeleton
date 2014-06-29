@@ -1,25 +1,58 @@
-*skeleton.txt*  Initialize new Vim buffers with file-type-specific templates
-
-Author:   Noah Frederick <http://noahfrederick.com>
-License:  Same terms as Vim itself (see |license|)
-
-This plugin is only available if 'compatible' is not set.
+*skeleton.txt*	Initialize new Vim buffers with file-type-specific templates
+Noah Frederick                                           *Skeleton* *skeleton*
 
 ==============================================================================
-INTRODUCTION					*skeleton*
-
-Use Vim as a notebook or journal: logbook.vim makes it easy to keep daily logs
-in Markdown format (or any other format).
-
-Sorry, the rest of the help document is coming soon.
+CONTENTS                                                   *skeleton-contents*
+  1. Introduction.............................................|skeleton-intro|
+  2. Configuration...........................................|skeleton-config|
+  3. Commands..............................................|skeleton-commands|
 
 ==============================================================================
-ABOUT						*skeleton-about*
+INTRODUCTION                                                  *skeleton-intro*
 
-You can find the latest version of this plugin on GitHub:
-https://github.com/noahfrederick/vim-skeleton
+Skeleton initializes new Vim buffers with file-type-specific templates.
 
-Please report issues on GitHub as well:
-https://github.com/noahfrederick/vim-skeleton/issues
+Add something like the following to ~/.vim/templates/skel.xml:
+>
+  <?xml version="1.0" encoding="UTF-8" ?>
+  <@BASENAME@>
+      @CURSOR@
+  </@BASENAME@>
+<
+And when you create a new buffer, e.g., books.xml, it will be initialized with
+your template:
+>
+  <?xml version="1.0" encoding="UTF-8" ?>
+  <books>
+      [cursor is here]
+  </books>
+<
+It differs from a snippet plug-in in that it is concerned with initializing
+new buffers with boilerplate text without any manual intervention such as
+triggering a snippet.
 
- vim:tw=78:ts=8:ft=help:norl:
+Skeleton stays out of your way: it will never load a template unless the
+buffer is empty and is not associated with an existing file on disk. And if
+you don't happen to want to use the template for a particular file, issuing
+|undo| (u) will restore your empty buffer.
+
+This plug-in is only available if 'compatible' is not set.
+
+==============================================================================
+CONFIGURATION                                                *skeleton-config*
+
+                                                     *g:skeleton_template_dir*
+The directory that contains skeleton template files. Example:
+>
+  let g:skeleton_template_dir = "~/.vim/templates"
+<
+Default: "~/.vim/templates"
+
+==============================================================================
+COMMANDS                                                   *skeleton-commands*
+
+:SkelEdit[!]                                                       *:SkelEdit*
+  Edits the active template file.
+
+
+vim:tw=78:ts=8:ft=help:norl:
