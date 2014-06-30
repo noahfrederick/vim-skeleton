@@ -4,6 +4,15 @@ Initialize new Vim buffers with file-type-specific templates
 
 [![Build Status][buildimg]](https://travis-ci.org/noahfrederick/vim-skeleton)
 
+## Features
+
+- Automatically populate new buffers with file-type-specific templates
+- Include dynamic text in your templates with simple placeholders
+- Create custom placeholders that are replaced by functions you define
+- Define custom replacements based on file-type
+- Define custom templates based on filename and containing directory
+- Simple convention-over-configuration design (no configuration required)
+
 ## Usage
 ### The Basics
 
@@ -65,7 +74,6 @@ To get started, try:
 	vim hello.txt
 
 ## Development
-
 ### Testing
 
 Tests are written for [vspec][vspec], which can be installed via
