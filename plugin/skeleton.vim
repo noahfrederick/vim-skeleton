@@ -38,6 +38,17 @@ let g:loaded_skeleton = 1
 "
 " This plug-in is only available if 'compatible' is not set.
 
+""
+" @section About, about
+" @plugin(stylized) is distributed under the same terms as Vim itself (see
+" |license|)
+"
+" You can find the latest version of this plug-in on GitHub:
+" https://github.com/noahfrederick/vim-skeleton
+"
+" Please report issues on GitHub as well:
+" https://github.com/noahfrederick/vim-skeleton/issues
+
 if !exists('g:skeleton_template_dir')
   ""
   " The directory that contains skeleton template files. Example:

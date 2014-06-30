@@ -6,6 +6,7 @@ CONTENTS                                                   *skeleton-contents*
   1. Introduction.............................................|skeleton-intro|
   2. Configuration...........................................|skeleton-config|
   3. Commands..............................................|skeleton-commands|
+  4. About....................................................|skeleton-about|
 
 ==============================================================================
 INTRODUCTION                                                  *skeleton-intro*
@@ -79,6 +80,17 @@ COMMANDS                                                   *skeleton-commands*
 
 :SkelEdit[!]                                                       *:SkelEdit*
   Edits the active template file.
+
+==============================================================================
+ABOUT                                                         *skeleton-about*
+
+Skeleton is distributed under the same terms as Vim itself (see |license|)
+
+You can find the latest version of this plug-in on GitHub:
+https://github.com/noahfrederick/vim-skeleton
+
+Please report issues on GitHub as well:
+https://github.com/noahfrederick/vim-skeleton/issues
 
 
 vim:tw=78:ts=8:ft=help:norl:
