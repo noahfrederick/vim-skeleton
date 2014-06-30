@@ -62,6 +62,19 @@ if ! exists("g:skeleton_replacements")
   " the return value, "The Title".
   "
   " Default: {}
+  "
+  " To create one or more replacements for a particular file-type, add your
+  " function instead to a g:skeleton_replacements_{filetype} dictionary. For
+  " example, to create a TITLE placeholder for Ruby files:
+  " >
+  "   let g:skeleton_replacements_ruby = {}
+  "
+  "   function! g:skeleton_replacements_ruby.TITLE()
+  "     return "The Title"
+  "   endfunction
+  " <
+  " This will override g:skeleton_replacements.TITLE() (if defined) for Ruby
+  " files.
   let g:skeleton_replacements = {}
 endif
 
