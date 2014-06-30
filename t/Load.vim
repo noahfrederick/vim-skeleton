@@ -1,16 +1,20 @@
 let g:skeleton_test_dir = 't'
 let g:skeleton_template_dir = g:skeleton_test_dir . '/templates'
 
-function! SkeletonCustomTemplate_custom(filename)
+function! SkeletonFiletypeTemplate_custom(filename)
   let g:skeleton_called_custom_template_func = 1
   return 'custom.txt'
 endfunction
 
-function! SkeletonCustomReplace(filename)
+let skeleton_replacements = {}
+
+function! skeleton_replacements.CUSTOM()
   let g:skeleton_called_custom_replace_func = 1
 endfunction
 
-function! SkeletonCustomReplace_custom(filename)
+let skeleton_replacements_custom = {}
+
+function! skeleton_replacements_custom.CUSTOM()
   let g:skeleton_called_custom_replace_filetype_func = 1
 endfunction
 

@@ -48,6 +48,20 @@ The directory that contains skeleton template files. Example:
 <
 Default: "~/.vim/templates"
 
+                                                     *g:skeleton_replacements*
+Dictionary of custom global replacement functions. Each function should be
+named after the corresponding template placeholder, and should return the
+value with which the placeholder will be substituted. For example:
+>
+  function! g:skeleton_replacements.TITLE()
+    return "The Title"
+  endfunction
+<
+Registering the above function would replace the @TITLE@ placeholder with the
+return value, "The Title".
+
+Default: {}
+
 ==============================================================================
 COMMANDS                                                   *skeleton-commands*
 

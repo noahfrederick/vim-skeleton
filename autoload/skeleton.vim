@@ -1,16 +1,6 @@
 " Skeleton:    Initialize new Vim buffers with file-type-specific templates
 " Maintainer:  Noah Frederick (http://noahfrederick.com)
 
-if !exists('g:skeleton_template_dir')
-  ""
-  " The directory that contains skeleton template files. Example:
-  " >
-  "   let g:skeleton_template_dir = "~/.vim/templates"
-  " <
-  " Default: "~/.vim/templates"
-  let g:skeleton_template_dir = '~/.vim/templates'
-endif
-
 function! s:template_path(filename)
   return expand(join([g:skeleton_template_dir, a:filename], '/'))
 endfunction
@@ -46,7 +36,7 @@ function! skeleton#Load(type, filename)
   endif
 
   " Use custom template name if custom function is defined
-  if ! exists('*SkeletonCustomTemplate_'.a:type) || ! skeleton#ReadTemplate(SkeletonCustomTemplate_{a:type}(a:filename))
+  if ! exists('*SkeletonFiletypeTemplate_'.a:type) || ! skeleton#ReadTemplate(SkeletonFiletypeTemplate_{a:type}(a:filename))
     " Look for template named after containing directory with extension
     if ! skeleton#ReadTemplate(substitute(fnamemodify(a:filename, ':h:t'), '\W', '_', 'g').'.'.a:type)
       " Look for generic template with extension
@@ -56,14 +46,14 @@ function! skeleton#Load(type, filename)
     endif
   endif
 
-  " Do any custom replacements defined for all templates
-  if exists('*SkeletonCustomReplace')
-    call SkeletonCustomReplace(a:filename)
+  " Do any custom replacements defined for file type
+  if exists('g:skeleton_replacements_'.a:type)
+    call skeleton#DoReplacementsInDict(g:skeleton_replacements_{a:type})
   endif
 
-  " Do any custom replacements defined for file type
-  if exists('*SkeletonCustomReplace_'.a:type)
-    call SkeletonCustomReplace_{a:type}(a:filename)
+  " Do any custom replacements defined for all templates
+  if exists('g:skeleton_replacements')
+    call skeleton#DoReplacementsInDict(g:skeleton_replacements)
   endif
 
   " Do the default replacements including positioning the cursor
@@ -82,6 +72,12 @@ function! skeleton#ReadTemplate(filename) abort
   silent execute '0read '.s:template_path(b:skeleton_template_file)
   let &cpoptions = cpopts
   return 1
+endfunction
+
+function! skeleton#DoReplacementsInDict(dict)
+  for [key, ReplaceFunc] in items(a:dict)
+    call skeleton#Replace(key, call(ReplaceFunc, [], {}))
+  endfor
 endfunction
 
 function! skeleton#DoDefaultReplacements(filename)

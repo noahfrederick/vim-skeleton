@@ -1,3 +1,6 @@
+let g:skeleton_test_dir = 't'
+let g:skeleton_template_dir = g:skeleton_test_dir . '/templates'
+
 describe 'skeleton#EditCurrentTemplate'
   after
     unlet b:skeleton_template_file

@@ -38,6 +38,33 @@ let g:loaded_skeleton = 1
 "
 " This plug-in is only available if 'compatible' is not set.
 
+if !exists('g:skeleton_template_dir')
+  ""
+  " The directory that contains skeleton template files. Example:
+  " >
+  "   let g:skeleton_template_dir = "~/.vim/templates"
+  " <
+  " Default: "~/.vim/templates"
+  let g:skeleton_template_dir = '~/.vim/templates'
+endif
+
+if ! exists("g:skeleton_replacements")
+  ""
+  " Dictionary of custom global replacement functions. Each function should be
+  " named after the corresponding template placeholder, and should return the
+  " value with which the placeholder will be substituted. For example:
+  " >
+  "   function! g:skeleton_replacements.TITLE()
+  "     return "The Title"
+  "   endfunction
+  " <
+  " Registering the above function would replace the @TITLE@ placeholder with
+  " the return value, "The Title".
+  "
+  " Default: {}
+  let g:skeleton_replacements = {}
+endif
+
 augroup Skeleton
   autocmd!
   autocmd BufNewFile * call skeleton#LoadByFilename(expand('<amatch>'))
