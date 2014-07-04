@@ -98,4 +98,5 @@ augroup END
 ""
 " Edits a template file. If the optional [template] argument is omitted, edits
 " the template inserted into the current buffer.
-command! -bang -bar -nargs=? SkelEdit execute skeleton#EditTemplate(<q-args>, 'edit<bang>')
+command! -bang -bar -nargs=? -complete=customlist,skeleton#CompleteTemplateNames
+  \ SkelEdit execute skeleton#EditTemplate(<q-args>, 'edit<bang>')

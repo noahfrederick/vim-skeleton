@@ -120,3 +120,8 @@ function! skeleton#EditTemplate(tmpl, cmd)
 
   return join([a:cmd, path])
 endfunction
+
+function! skeleton#CompleteTemplateNames(A, L, P)
+  let matches = split(globpath(g:skeleton_template_dir, a:A . '*'), "\n")
+  return map(matches, 'fnamemodify(v:val, ":t")')
+endfunction
