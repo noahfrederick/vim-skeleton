@@ -78,8 +78,9 @@ files.
 ==============================================================================
 COMMANDS                                                   *skeleton-commands*
 
-:SkelEdit[!]                                                       *:SkelEdit*
-  Edits the active template file.
+:SkelEdit[!] [template]                                            *:SkelEdit*
+  Edits a template file. If the optional [template] argument is omitted, edits
+  the template inserted into the current buffer.
 
 ==============================================================================
 ABOUT                                                         *skeleton-about*

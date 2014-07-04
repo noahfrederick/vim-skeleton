@@ -96,5 +96,6 @@ augroup Skeleton
 augroup END
 
 ""
-" Edits the active template file.
-command! -bang -bar SkelEdit execute skeleton#EditCurrentTemplate('edit<bang>')
+" Edits a template file. If the optional [template] argument is omitted, edits
+" the template inserted into the current buffer.
+command! -bang -bar -nargs=? SkelEdit execute skeleton#EditTemplate(<q-args>, 'edit<bang>')

@@ -108,13 +108,15 @@ function! skeleton#Replace(placeholder, replacement)
 endfunction
 
 function! skeleton#EditTemplate(tmpl, cmd)
-  let path = s:template_path(a:tmpl)
-  return join([a:cmd, path])
-endfunction
-
-function! skeleton#EditCurrentTemplate(cmd)
-  if !exists('b:skeleton_template_file')
-    return "echoerr 'No template is associated with this buffer'"
+  if a:tmpl ==# ''
+    if exists('b:skeleton_template_file')
+      let path = s:template_path(b:skeleton_template_file)
+    else
+      return "echoerr 'No template is associated with this buffer'"
+    endif
+  else
+    let path = s:template_path(a:tmpl)
   endif
-  return skeleton#EditTemplate(b:skeleton_template_file, a:cmd)
+
+  return join([a:cmd, path])
 endfunction
