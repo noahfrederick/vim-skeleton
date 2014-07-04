@@ -30,7 +30,13 @@ function! skeleton#LoadByFiletype(type, filename)
   return skeleton#Load(ext, a:filename, 0, '')
 endfunction
 
-function! skeleton#Load(type, filename)
+function! skeleton#InsertTemplate(tmpl, force)
+  let filename = expand('%')
+  if skeleton#Load(skeleton#GetExtension(filename), filename, a:force, a:tmpl) == -1
+    echoerr 'Buffer not empty or file exists on disk. Use ! to override.'
+  endif
+endfunction
+
 function! skeleton#Load(type, filename, force, tmpl)
   " Abort if buffer is non-empty or file already exists
   if ! (line('$') == 1 && getline('$') == '') || filereadable(a:filename)

@@ -82,6 +82,12 @@ COMMANDS                                                   *skeleton-commands*
   Edits a template file. If the optional [template] argument is omitted, edits
   the template inserted into the current buffer.
 
+:SkelInsert[!] [template]                                        *:SkelInsert*
+  Inserts the specified [template] into the current buffer if it is empty. If
+  [!] is supplied after the command, the buffer's contents will be replaced by
+  the template. If the template name is omitted, the normal rules for
+  determining the template to use are applied.
+
 ==============================================================================
 ABOUT                                                         *skeleton-about*
 

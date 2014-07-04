@@ -44,10 +44,10 @@ let g:loaded_skeleton = 1
 " |license|)
 "
 " You can find the latest version of this plug-in on GitHub:
-" https://github.com/noahfrederick/vim-skeleton
+" https://github.com/noahfrederick/vim-@plugin(name)
 "
 " Please report issues on GitHub as well:
-" https://github.com/noahfrederick/vim-skeleton/issues
+" https://github.com/noahfrederick/vim-@plugin(name)/issues
 
 if !exists('g:skeleton_template_dir')
   ""
@@ -100,3 +100,11 @@ augroup END
 " the template inserted into the current buffer.
 command! -bang -bar -nargs=? -complete=customlist,skeleton#CompleteTemplateNames
   \ SkelEdit execute skeleton#EditTemplate(<q-args>, 'edit<bang>')
+
+""
+" Inserts the specified [template] into the current buffer if it is empty. If
+" [!] is supplied after the command, the buffer's contents will be replaced by
+" the template. If the template name is omitted, the normal rules for
+" determining the template to use are applied.
+command! -bang -bar -nargs=? -complete=customlist,skeleton#CompleteTemplateNames
+  \ SkelInsert call skeleton#InsertTemplate(<q-args>, ('<bang>' == '!'))
