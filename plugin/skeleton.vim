@@ -59,7 +59,7 @@ if !exists('g:skeleton_template_dir')
   let g:skeleton_template_dir = '~/.vim/templates'
 endif
 
-if ! exists("g:skeleton_replacements")
+if !exists("g:skeleton_replacements")
   ""
   " Dictionary of custom global replacement functions. Each function should be
   " named after the corresponding template placeholder, and should return the
