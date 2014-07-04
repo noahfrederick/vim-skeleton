@@ -13,7 +13,8 @@ function! skeleton#LoadByFilename(filename)
   if ext =~ '['
     return -2
   endif
-  return skeleton#Load(ext, a:filename)
+
+  return skeleton#Load(ext, a:filename, 0, '')
 endfunction
 
 function! skeleton#LoadByFiletype(type, filename)
@@ -26,24 +27,34 @@ function! skeleton#LoadByFiletype(type, filename)
   else
     let ext = a:type
   endif
-  return skeleton#Load(ext, a:filename)
+  return skeleton#Load(ext, a:filename, 0, '')
 endfunction
 
 function! skeleton#Load(type, filename)
+function! skeleton#Load(type, filename, force, tmpl)
   " Abort if buffer is non-empty or file already exists
   if ! (line('$') == 1 && getline('$') == '') || filereadable(a:filename)
-    return -1
+    if a:force == 1
+      " Clear buffer instead
+      1,$ delete _
+    else
+      return -1
+    endif
   endif
 
-  " Use custom template name if custom function is defined
-  if ! exists('*SkeletonFiletypeTemplate_'.a:type) || ! skeleton#ReadTemplate(SkeletonFiletypeTemplate_{a:type}(a:filename))
-    " Look for template named after containing directory with extension
-    if ! skeleton#ReadTemplate(substitute(fnamemodify(a:filename, ':h:t'), '\W', '_', 'g').'.'.a:type)
-      " Look for generic template with extension
-      if ! skeleton#ReadTemplate('skel.'.a:type)
-        return 0
+  if a:tmpl ==# ''
+    " Use custom template name if custom function is defined
+    if ! exists('*SkeletonFiletypeTemplate_'.a:type) || ! skeleton#ReadTemplate(SkeletonFiletypeTemplate_{a:type}(a:filename))
+      " Look for template named after containing directory with extension
+      if ! skeleton#ReadTemplate(substitute(fnamemodify(a:filename, ':h:t'), '\W', '_', 'g').'.'.a:type)
+        " Look for generic template with extension
+        if ! skeleton#ReadTemplate('skel.'.a:type)
+          return 0
+        endif
       endif
     endif
+  elseif ! skeleton#ReadTemplate(a:tmpl)
+    return 0
   endif
 
   " Do any custom replacements defined for file type
