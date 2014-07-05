@@ -1,14 +1,10 @@
 let g:skeleton_test_dir = 't'
 let g:skeleton_template_dir = g:skeleton_test_dir . '/templates'
 
-let g:skeleton_called_custom_template_func = 0
-
 function! SkeletonFiletypeTemplate_custom(filename)
   let g:skeleton_called_custom_template_func = 1
   return 'custom.txt'
 endfunction
-
-let g:skeleton_called_ruby_template_func = 0
 
 function! SkeletonFiletypeTemplate_ruby(filename)
   let g:skeleton_called_ruby_template_func = 1
@@ -16,21 +12,18 @@ function! SkeletonFiletypeTemplate_ruby(filename)
 endfunction
 
 let skeleton_replacements = {}
-let g:skeleton_called_custom_replace_func = 0
 
 function! skeleton_replacements.CUSTOM()
   let g:skeleton_called_custom_replace_func = 1
 endfunction
 
 let skeleton_replacements_custom = {}
-let g:skeleton_called_custom_replace_filetype_func = 0
 
 function! skeleton_replacements_custom.CUSTOM()
   let g:skeleton_called_custom_replace_filetype_func = 1
 endfunction
 
 let skeleton_replacements_ruby = {}
-let g:skeleton_called_ruby_replace_filetype_func = 0
 
 function! skeleton_replacements_ruby.CUSTOM()
   let g:skeleton_called_ruby_replace_filetype_func = 1
@@ -42,6 +35,7 @@ describe 'skeleton#Load'
     let g:skeleton_called_custom_template_func = 0
     let g:skeleton_called_custom_replace_func = 0
     let g:skeleton_called_custom_replace_filetype_func = 0
+    let g:skeleton_called_ruby_replace_filetype_func = 0
   end
 
   after
