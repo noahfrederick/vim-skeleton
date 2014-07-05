@@ -1,6 +1,6 @@
 {
 	"name": "skeleton",
-	"version": "0.2.0",
+	"version": "0.3.0",
 	"author": "Noah Frederick",
 	"description": "Initialize new Vim buffers with file-type-specific templates",
 	"homepage": "https://github.com/noahfrederick/vim-skeleton"
