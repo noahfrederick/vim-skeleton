@@ -121,7 +121,7 @@ function! s:load_by_filetype(type, filename)
     return -1
   endif
 
-  let ext = skeleton#FiletypeToExtension()
+  let ext = skeleton#FiletypeToExtension(&filetype)
 
   return skeleton#Load(ext, a:filename, '')
 endfunction
