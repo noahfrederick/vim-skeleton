@@ -30,14 +30,20 @@ function! skeleton#InsertTemplate(tmpl, force)
   return skeleton#Load(ext, filename, a:tmpl)
 endfunction
 
-function! skeleton#Load(type, filename, tmpl)
+function! skeleton#Load(ext, filename, tmpl)
+  if &filetype ==# ''
+    let type = a:ext
+  else
+    let type = &filetype
+  endif
+
   if a:tmpl ==# ''
     " Use custom template name if custom function is defined
-    if ! exists('*SkeletonFiletypeTemplate_'.a:type) || ! skeleton#ReadTemplate(SkeletonFiletypeTemplate_{a:type}(a:filename))
+    if ! exists('*SkeletonFiletypeTemplate_'.type) || ! skeleton#ReadTemplate(SkeletonFiletypeTemplate_{type}(a:filename))
       " Look for template named after containing directory with extension
-      if ! skeleton#ReadTemplate(substitute(fnamemodify(a:filename, ':h:t'), '\W', '_', 'g').'.'.a:type)
+      if ! skeleton#ReadTemplate(substitute(fnamemodify(a:filename, ':h:t'), '\W', '_', 'g').'.'.a:ext)
         " Look for generic template with extension
-        if ! skeleton#ReadTemplate('skel.'.a:type)
+        if ! skeleton#ReadTemplate('skel.'.a:ext)
           return 0
         endif
       endif
@@ -46,9 +52,9 @@ function! skeleton#Load(type, filename, tmpl)
     return 0
   endif
 
-  " Do any custom replacements defined for file type
-  if exists('g:skeleton_replacements_'.a:type)
-    call skeleton#DoReplacementsInDict(g:skeleton_replacements_{a:type})
+  " Do any custom replacements defined for file ext
+  if exists('g:skeleton_replacements_'.type)
+    call skeleton#DoReplacementsInDict(g:skeleton_replacements_{type})
   endif
 
   " Do any custom replacements defined for all templates

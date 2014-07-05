@@ -1,21 +1,39 @@
 let g:skeleton_test_dir = 't'
 let g:skeleton_template_dir = g:skeleton_test_dir . '/templates'
 
+let g:skeleton_called_custom_template_func = 0
+
 function! SkeletonFiletypeTemplate_custom(filename)
   let g:skeleton_called_custom_template_func = 1
   return 'custom.txt'
 endfunction
 
+let g:skeleton_called_ruby_template_func = 0
+
+function! SkeletonFiletypeTemplate_ruby(filename)
+  let g:skeleton_called_ruby_template_func = 1
+  return 'custom.txt'
+endfunction
+
 let skeleton_replacements = {}
+let g:skeleton_called_custom_replace_func = 0
 
 function! skeleton_replacements.CUSTOM()
   let g:skeleton_called_custom_replace_func = 1
 endfunction
 
 let skeleton_replacements_custom = {}
+let g:skeleton_called_custom_replace_filetype_func = 0
 
 function! skeleton_replacements_custom.CUSTOM()
   let g:skeleton_called_custom_replace_filetype_func = 1
+endfunction
+
+let skeleton_replacements_ruby = {}
+let g:skeleton_called_ruby_replace_filetype_func = 0
+
+function! skeleton_replacements_ruby.CUSTOM()
+  let g:skeleton_called_ruby_replace_filetype_func = 1
 endfunction
 
 describe 'skeleton#Load'
@@ -53,6 +71,12 @@ describe 'skeleton#Load'
     Expect g:skeleton_called_custom_template_func == 1
   end
 
+  it 'calls a custom template function based on filetype'
+    set filetype=ruby
+    call skeleton#Load('rb', 'test.rb', '')
+    Expect g:skeleton_called_ruby_template_func == 1
+  end
+
   it 'reads a custom template if possible'
     Expect filereadable(g:skeleton_template_dir.'/custom.txt') == 1
     call skeleton#Load('custom', 'test.txt', '')
@@ -85,5 +109,11 @@ describe 'skeleton#Load'
   it 'calls a custom filetype replace function if it exists'
     call skeleton#Load('custom', 'test.txt', '')
     Expect g:skeleton_called_custom_replace_filetype_func == 1
+  end
+
+  it 'calls a custom filetype replace function based on filetype'
+    set filetype=ruby
+    call skeleton#Load('rb', 'test.rb', '')
+    Expect g:skeleton_called_ruby_replace_filetype_func == 1
   end
 end
