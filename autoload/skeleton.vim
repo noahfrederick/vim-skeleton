@@ -34,6 +34,7 @@ function! skeleton#InsertTemplate(tmpl, force)
 
   if skeleton#ClearBufferMaybe(filename, a:force) == -1
     echoerr 'Buffer not empty or file exists on disk. Use ! to override.'
+    return -1
   endif
 
   let ext = skeleton#GetExtensionOrBasename(filename)
