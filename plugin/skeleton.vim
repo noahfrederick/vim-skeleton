@@ -89,10 +89,59 @@ if !exists("g:skeleton_replacements")
   let g:skeleton_replacements = {}
 endif
 
+function! g:skeleton_buffer_empty_or_abort(filename, force)
+  " Abort if buffer is non-empty or file already exists
+  if ! (line('$') == 1 && getline('$') == '') || filereadable(a:filename)
+    if a:force == 1
+      " Clear buffer instead
+      1,$ delete _
+    else
+      return -1
+    endif
+  endif
+
+  return 1
+endfunction
+
+function! s:load_by_filename(filename)
+  if g:skeleton_buffer_empty_or_abort(a:filename, 0) == -1
+    return -1
+  endif
+
+  let ext = fnamemodify(a:filename, ':e')
+
+  if ext == ''
+    let ext = fnamemodify(a:filename, ':t')
+  endif
+  if ext =~ '['
+    return -2
+  endif
+
+  return skeleton#Load(ext, a:filename, '')
+endfunction
+
+function! s:load_by_filetype(type, filename)
+  if g:skeleton_buffer_empty_or_abort(a:filename, 0) == -1
+    return -1
+  endif
+
+  if a:type == 'python'
+    let ext = 'py'
+  elseif a:type == 'ruby'
+    let ext = 'rb'
+  elseif a:type == 'yaml'
+    let ext = 'yml'
+  else
+    let ext = a:type
+  endif
+
+  return skeleton#Load(ext, a:filename, '')
+endfunction
+
 augroup Skeleton
   autocmd!
-  autocmd BufNewFile * call skeleton#LoadByFilename(expand('<amatch>'))
-  autocmd FileType   * call skeleton#LoadByFiletype(expand('<amatch>'), expand('<afile>'))
+  autocmd BufNewFile * call s:load_by_filename(expand('<amatch>'))
+  autocmd FileType   * call s:load_by_filetype(expand('<amatch>'), expand('<afile>'))
 augroup END
 
 ""

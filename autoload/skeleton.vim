@@ -5,49 +5,22 @@ function! s:template_path(filename)
   return expand(join([g:skeleton_template_dir, a:filename], '/'))
 endfunction
 
-function! skeleton#LoadByFilename(filename)
-  let ext = fnamemodify(a:filename, ':e')
-  if ext == ''
-    let ext = (fnamemodify(a:filename, ':t'))
-  endif
-  if ext =~ '['
-    return -2
-  endif
-
-  return skeleton#Load(ext, a:filename, 0, '')
-endfunction
-
-function! skeleton#LoadByFiletype(type, filename)
-  if a:type == 'python'
-    let ext = 'py'
-  elseif a:type == 'ruby'
-    let ext = 'rb'
-  elseif a:type == 'yaml'
-    let ext = 'yml'
-  else
-    let ext = a:type
-  endif
-  return skeleton#Load(ext, a:filename, 0, '')
-endfunction
-
 function! skeleton#InsertTemplate(tmpl, force)
   let filename = expand('%')
-  if skeleton#Load(skeleton#GetExtension(filename), filename, a:force, a:tmpl) == -1
+  let ext = fnamemodify(filename, ':e')
+
+  if g:skeleton_buffer_empty_or_abort(filename, a:force) == -1
     echoerr 'Buffer not empty or file exists on disk. Use ! to override.'
   endif
-endfunction
 
-function! skeleton#Load(type, filename, force, tmpl)
-  " Abort if buffer is non-empty or file already exists
-  if ! (line('$') == 1 && getline('$') == '') || filereadable(a:filename)
-    if a:force == 1
-      " Clear buffer instead
-      1,$ delete _
-    else
-      return -1
-    endif
+  if ext == ''
+    let ext = fnamemodify(filename, ':t')
   endif
 
+  return skeleton#Load(ext, filename, a:tmpl)
+endfunction
+
+function! skeleton#Load(type, filename, tmpl)
   if a:tmpl ==# ''
     " Use custom template name if custom function is defined
     if ! exists('*SkeletonFiletypeTemplate_'.a:type) || ! skeleton#ReadTemplate(SkeletonFiletypeTemplate_{a:type}(a:filename))
