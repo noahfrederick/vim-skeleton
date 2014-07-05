@@ -5,17 +5,27 @@ function! s:template_path(filename)
   return expand(join([g:skeleton_template_dir, a:filename], '/'))
 endfunction
 
+function! skeleton#GetExtensionOrBasename(filename)
+  let ext = fnamemodify(a:filename, ':e')
+
+  if ext == ''
+    let ext = fnamemodify(a:filename, ':t')
+  endif
+  if ext =~ '['
+    return -1
+  endif
+
+  return ext
+endfunction
+
 function! skeleton#InsertTemplate(tmpl, force)
   let filename = expand('%')
-  let ext = fnamemodify(filename, ':e')
 
   if g:skeleton_buffer_empty_or_abort(filename, a:force) == -1
     echoerr 'Buffer not empty or file exists on disk. Use ! to override.'
   endif
 
-  if ext == ''
-    let ext = fnamemodify(filename, ':t')
-  endif
+  let ext = skeleton#GetExtensionOrBasename(filename)
 
   return skeleton#Load(ext, filename, a:tmpl)
 endfunction

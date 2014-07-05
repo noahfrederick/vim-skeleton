@@ -108,13 +108,9 @@ function! s:load_by_filename(filename)
     return -1
   endif
 
-  let ext = fnamemodify(a:filename, ':e')
-
-  if ext == ''
-    let ext = fnamemodify(a:filename, ':t')
-  endif
-  if ext =~ '['
-    return -2
+  let ext = skeleton#GetExtensionOrBasename(a:filename)
+  if ext == -1
+    return -1
   endif
 
   return skeleton#Load(ext, a:filename, '')
