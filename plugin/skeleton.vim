@@ -89,7 +89,7 @@ if !exists("g:skeleton_replacements")
   let g:skeleton_replacements = {}
 endif
 
-function! g:skeleton_buffer_empty_or_abort(filename, force)
+function! skeleton#ClearBufferMaybe(filename, force)
   " Abort if buffer is non-empty or file already exists
   if ! (line('$') == 1 && getline('$') == '') || filereadable(a:filename)
     if a:force == 1
@@ -104,7 +104,7 @@ function! g:skeleton_buffer_empty_or_abort(filename, force)
 endfunction
 
 function! s:load_by_filename(filename)
-  if g:skeleton_buffer_empty_or_abort(a:filename, 0) == -1
+  if skeleton#ClearBufferMaybe(a:filename, 0) == -1
     return -1
   endif
 
@@ -117,7 +117,7 @@ function! s:load_by_filename(filename)
 endfunction
 
 function! s:load_by_filetype(type, filename)
-  if g:skeleton_buffer_empty_or_abort(a:filename, 0) == -1
+  if skeleton#ClearBufferMaybe(a:filename, 0) == -1
     return -1
   endif
 

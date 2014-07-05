@@ -32,7 +32,7 @@ endfunction
 function! skeleton#InsertTemplate(tmpl, force)
   let filename = expand('%')
 
-  if g:skeleton_buffer_empty_or_abort(filename, a:force) == -1
+  if skeleton#ClearBufferMaybe(filename, a:force) == -1
     echoerr 'Buffer not empty or file exists on disk. Use ! to override.'
   endif
 
