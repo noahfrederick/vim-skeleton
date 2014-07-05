@@ -1,6 +1,13 @@
 " Skeleton:    Initialize new Vim buffers with file-type-specific templates
 " Maintainer:  Noah Frederick (http://noahfrederick.com)
 
+let s:filetype_extensions = {
+      \ 'python':      'py',
+      \ 'ruby':        'rb',
+      \ 'yaml':        'yml',
+      \ 'javascript':  'js',
+      \ }
+
 function! s:template_path(filename)
   return expand(join([g:skeleton_template_dir, a:filename], '/'))
 endfunction
@@ -16,6 +23,10 @@ function! skeleton#GetExtensionOrBasename(filename)
   endif
 
   return ext
+endfunction
+
+function! skeleton#FiletypeToExtension(type)
+  return get(s:filetype_extensions, a:type, a:type)
 endfunction
 
 function! skeleton#InsertTemplate(tmpl, force)

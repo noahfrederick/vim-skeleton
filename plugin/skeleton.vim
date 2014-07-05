@@ -121,15 +121,7 @@ function! s:load_by_filetype(type, filename)
     return -1
   endif
 
-  if a:type == 'python'
-    let ext = 'py'
-  elseif a:type == 'ruby'
-    let ext = 'rb'
-  elseif a:type == 'yaml'
-    let ext = 'yml'
-  else
-    let ext = a:type
-  endif
+  let ext = skeleton#FiletypeToExtension()
 
   return skeleton#Load(ext, a:filename, '')
 endfunction
