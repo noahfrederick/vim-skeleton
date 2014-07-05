@@ -12,7 +12,7 @@ end
 
 desc 'Run tests with vspec'
 task :test do
-  sh 'bundle exec vim-flavor test'
+  sh 'bundle exec vim-flavor test || echo "Exit status: $?"'
 end
 
 Rake::PackageTask.new('vim-skeleton') do |p|
