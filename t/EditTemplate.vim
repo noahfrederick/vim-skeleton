@@ -3,7 +3,9 @@ let g:skeleton_template_dir = g:skeleton_test_dir . '/templates'
 
 describe 'skeleton#EditTemplate'
   after
-    unlet b:skeleton_template_file
+    if exists('b:skeleton_template_file')
+      unlet b:skeleton_template_file
+    endif
   end
 
   it 'fails when no template was loaded and empty string is passed'
