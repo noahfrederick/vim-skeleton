@@ -1,12 +1,14 @@
 let g:skeleton_test_dir = 't'
 let g:skeleton_template_dir = g:skeleton_test_dir . '/templates'
 
-function! SkeletonFiletypeTemplate_custom(filename)
+let skeleton_find_template = {}
+
+function! skeleton_find_template.custom(filename)
   let g:skeleton_called_custom_template_func = 1
   return 'custom.txt'
 endfunction
 
-function! SkeletonFiletypeTemplate_ruby(filename)
+function! skeleton_find_template.ruby(filename)
   let g:skeleton_called_ruby_template_func = 1
   return 'custom.txt'
 endfunction
@@ -33,6 +35,7 @@ describe 'skeleton#Load'
   before
     new
     let g:skeleton_called_custom_template_func = 0
+    let g:skeleton_called_ruby_template_func = 0
     let g:skeleton_called_custom_replace_func = 0
     let g:skeleton_called_custom_replace_filetype_func = 0
     let g:skeleton_called_ruby_replace_filetype_func = 0

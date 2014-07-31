@@ -51,7 +51,7 @@ function! skeleton#Load(ext, filename, tmpl)
 
   if a:tmpl ==# ''
     " Use custom template name if custom function is defined
-    if ! exists('*SkeletonFiletypeTemplate_'.type) || ! skeleton#ReadTemplate(SkeletonFiletypeTemplate_{type}(a:filename))
+    if ! exists('g:skeleton_find_template.'.type) || ! skeleton#ReadTemplate(g:skeleton_find_template[type](a:filename))
       " Look for template named after containing directory with extension
       if ! skeleton#ReadTemplate(substitute(fnamemodify(a:filename, ':h:t'), '\W', '_', 'g').'.'.a:ext)
         " Look for generic template with extension

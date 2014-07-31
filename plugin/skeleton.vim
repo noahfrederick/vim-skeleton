@@ -89,6 +89,30 @@ if !exists("g:skeleton_replacements")
   let g:skeleton_replacements = {}
 endif
 
+if !exists("g:skeleton_find_template")
+  ""
+  " Dictionary of custom template-finding functions. Each function should be
+  " named after the filetype to which the function applies, and should return
+  " the path to the template file relative to your template directory.
+  " Functions are passed one parameter containing the buffer's filename. For
+  " example:
+  " >
+  "   function! g:skeleton_find_template.ruby(path)
+  "     if stridx(a:path, '/controllers/') != -1
+  "       return 'controller.rb'
+  "     endif
+  "     return ''
+  "   endfunction
+  " <
+  " Returning an empty string falls back to @plugin(stylized)'s default
+  " methods of locating the template. In the above example, a custom
+  " controller.rb template is used if and only if the passed path contains a
+  " "/controllers/" segment.
+  "
+  " Default: {}
+  let g:skeleton_find_template = {}
+endif
+
 function! skeleton#ClearBufferMaybe(filename, force)
   " Abort if buffer is non-empty or file already exists
   if ! (line('$') == 1 && getline('$') == '') || filereadable(a:filename)
