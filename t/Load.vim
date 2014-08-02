@@ -13,6 +13,8 @@ function! skeleton_find_template.ruby(filename)
   return 'custom.txt'
 endfunction
 
+let skeleton_find_template.non_func = 'A string'
+
 let skeleton_replacements = {}
 
 function! skeleton_replacements.CUSTOM()
@@ -66,6 +68,12 @@ describe 'skeleton#Load'
   it 'calls a custom template function if it exists'
     call skeleton#Load('custom', 'test.custom', '')
     Expect g:skeleton_called_custom_template_func == 1
+  end
+
+  it 'gracefully fails when a custom template function is not a Funcref'
+    Expect type(get(g:skeleton_find_template, 'non_func')) != 2
+    call skeleton#Load('non_func', 'test.non_func', '')
+    Expect getline(1) ==# ''
   end
 
   it 'calls a custom template function based on filetype'
