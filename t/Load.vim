@@ -1,35 +1,35 @@
 let g:skeleton_test_dir = 't'
 let g:skeleton_template_dir = g:skeleton_test_dir . '/templates'
 
-let skeleton_find_template = {}
+let g:skeleton_find_template = {}
 
-function! skeleton_find_template.custom(filename)
+function! g:skeleton_find_template.custom(filename)
   let g:skeleton_called_custom_template_func = 1
   return 'custom.txt'
 endfunction
 
-function! skeleton_find_template.ruby(filename)
+function! g:skeleton_find_template.ruby(filename)
   let g:skeleton_called_ruby_template_func = 1
   return 'custom.txt'
 endfunction
 
-let skeleton_find_template.non_func = 'A string'
+let g:skeleton_find_template.non_func = 'A string'
 
-let skeleton_replacements = {}
+let g:skeleton_replacements = {}
 
-function! skeleton_replacements.CUSTOM()
+function! g:skeleton_replacements.CUSTOM()
   let g:skeleton_called_custom_replace_func = 1
 endfunction
 
-let skeleton_replacements_custom = {}
+let g:skeleton_replacements_custom = {}
 
-function! skeleton_replacements_custom.CUSTOM()
+function! g:skeleton_replacements_custom.CUSTOM()
   let g:skeleton_called_custom_replace_filetype_func = 1
 endfunction
 
-let skeleton_replacements_ruby = {}
+let g:skeleton_replacements_ruby = {}
 
-function! skeleton_replacements_ruby.CUSTOM()
+function! g:skeleton_replacements_ruby.CUSTOM()
   let g:skeleton_called_ruby_replace_filetype_func = 1
 endfunction
 
