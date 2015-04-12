@@ -99,7 +99,7 @@ existing inline documentation as a guide for documenting new code.
 
 The help doc can be rebuilt by running:
 
-	vimdoc ./
+	rake doc
 
 [buildimg]: https://img.shields.io/travis/noahfrederick/vim-skeleton/master.svg
 [vspec]: https://github.com/kana/vim-vspec
