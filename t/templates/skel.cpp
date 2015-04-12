@@ -1,0 +1,1 @@
+Default template: skel.cpp

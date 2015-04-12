@@ -127,33 +127,24 @@ function! skeleton#ClearBufferMaybe(filename, force)
   return 1
 endfunction
 
-function! s:load_by_filename(filename)
+function! s:load_maybe(filename, filetype)
   if skeleton#ClearBufferMaybe(a:filename, 0) == -1
     return -1
   endif
 
   let ext = skeleton#GetExtensionOrBasename(a:filename)
+
   if ext == -1
-    return -1
+    let ext = skeleton#FiletypeToExtension(a:filetype)
   endif
-
-  return skeleton#Load(ext, a:filename, '')
-endfunction
-
-function! s:load_by_filetype(type, filename)
-  if skeleton#ClearBufferMaybe(a:filename, 0) == -1
-    return -1
-  endif
-
-  let ext = skeleton#FiletypeToExtension(&filetype)
 
   return skeleton#Load(ext, a:filename, '')
 endfunction
 
 augroup Skeleton
   autocmd!
-  autocmd BufNewFile * call s:load_by_filename(expand('<amatch>'))
-  autocmd FileType   * call s:load_by_filetype(expand('<amatch>'), expand('<afile>'))
+  autocmd BufNewFile * call s:load_maybe(expand('<amatch>'), '')
+  autocmd FileType   * call s:load_maybe(expand('<afile>'), expand('<amatch>'))
 augroup END
 
 ""
