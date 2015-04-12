@@ -51,7 +51,7 @@ function! skeleton#Load(ext, filename, tmpl)
 
   if a:tmpl ==# ''
     " Use custom template name if custom function is defined
-    if type(get(g:skeleton_find_template, type)) != 2 || ! skeleton#ReadTemplate(g:skeleton_find_template[type](a:filename))
+    if ! skeleton#ReadCustomTemplate(a:filename, type)
       " Look for template named after containing directory with extension
       if ! skeleton#ReadTemplate(substitute(fnamemodify(a:filename, ':h:t'), '\W', '_', 'g').'.'.a:ext)
         " Look for generic template with extension
@@ -90,6 +90,20 @@ function! skeleton#ReadTemplate(filename) abort
   silent execute '0read '.s:template_path(b:skeleton_template_file)
   let &cpoptions = cpopts
   return 1
+endfunction
+
+function! skeleton#ReadCustomTemplate(filename, type) abort
+  " Work around bug in older Vims by catching the error
+  "   7.4.086  can't skip over expression when not evaluating for dict member
+  try
+    if type(get(g:skeleton_find_template, a:type)) == 2 &&
+          \ skeleton#ReadTemplate(g:skeleton_find_template[a:type](a:filename))
+      return 1
+    endif
+  catch /^Vim\%((\a\+)\)\=:E116/
+  endtry
+
+  return 0
 endfunction
 
 function! skeleton#DoReplacementsInDict(dict)
