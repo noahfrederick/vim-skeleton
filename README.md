@@ -101,7 +101,7 @@ The help doc can be rebuilt by running:
 
 	vimdoc ./
 
-[buildimg]: https://travis-ci.org/noahfrederick/vim-skeleton.png?branch=master
+[buildimg]: https://img.shields.io/travis/noahfrederick/vim-skeleton/master.svg
 [vspec]: https://github.com/kana/vim-vspec
 [vim-flavor]: https://github.com/kana/vim-flavor
 [vimdoc]: https://github.com/google/vimdoc
