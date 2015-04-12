@@ -15,7 +15,7 @@ end
 
 desc 'Run tests with vspec'
 task :test do
-  sh 'bundle exec vim-flavor test || echo "Exit status: $?"'
+  sh 'bundle exec vim-flavor test'
 end
 
 desc 'Rebuild the documentation with vimdoc'
