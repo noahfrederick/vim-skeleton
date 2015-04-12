@@ -68,6 +68,7 @@ function instead to a g:skeleton_replacements_{filetype} dictionary. For
 example, to create a TITLE placeholder for Ruby files:
 >
   let g:skeleton_replacements_ruby = {}
+
   function! g:skeleton_replacements_ruby.TITLE()
     return "The Title"
   endfunction
