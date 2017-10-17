@@ -77,6 +77,10 @@ function! skeleton#Load(ext, filename, tmpl)
   " Do the default replacements including positioning the cursor
   call skeleton#DoDefaultReplacements(a:filename)
 
+  " Redraw in case cursor does not display.
+  " See noahfrederick/vim-skeleton#11 for more info
+  redraw
+
   return 1
 endfunction
 
@@ -135,7 +139,6 @@ function! skeleton#DoDefaultReplacements(filename)
   call skeleton#Replace('CURSOR', '')
   " Substitutions move the cursor's location, so calling this last sets the
   " cursor's positions to wherever @CURSOR@ is " Equivalent to :cursor()
-  redraw
 endfunction
 
 function! skeleton#Replace(placeholder, replacement)
