@@ -136,9 +136,9 @@ function! skeleton#DoDefaultReplacements(filename)
     1
   endif
 
+  " Move the cursor to the location of the `@CURSOR@` placeholder
+  " Similar to `:cursor()`
   call skeleton#Replace('CURSOR', '')
-  " Substitutions move the cursor's location, so calling this last sets the
-  " cursor's positions to wherever @CURSOR@ is " Equivalent to :cursor()
 endfunction
 
 function! skeleton#Replace(placeholder, replacement)
