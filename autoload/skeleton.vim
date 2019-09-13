@@ -115,11 +115,15 @@ endfunction
 function! skeleton#DoDefaultReplacements(filename)
   let filename = fnamemodify(a:filename, ':t')
   let basename = fnamemodify(a:filename, ':t:r')
+  let baseNameTitleCase = substitute(basename, '\(\<\w\+\>\)', '\u\1', 'g')
+  let BASENAME = toupper(basename)
 
   call skeleton#Replace('FILENAME', filename)
   call skeleton#Replace('BASENAME', basename)
   call skeleton#Replace('DATE', strftime('%a, %d %b %Y'))
   call skeleton#Replace('YEAR', strftime('%Y'))
+  call skeleton#Replace('Basename', baseNameTitleCase)
+  call skeleton#Replace('BASENAMECAPS', BASENAME)
 
   " Disable folding lest we delete more than the extra line
   normal! zn
