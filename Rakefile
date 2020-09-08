@@ -6,7 +6,7 @@ require 'json'
 plugin = JSON.load(File.new('addon-info.json'))
 
 desc 'Target for CI server'
-task :ci => [:dump, :test]
+task ci: [:dump, :test]
 
 desc 'Dump Vim\'s version info'
 task :dump do
@@ -21,6 +21,12 @@ end
 desc 'Rebuild the documentation with vimdoc'
 task :doc do
   sh 'vimdoc ./'
+end
+
+desc 'Prompt to upload archive to vim.org'
+task :publish do
+  cmd = 'open http://www.vim.org/scripts/add_script_version.php?script_id=%i'
+  sh format(cmd, plugin['script_id'])
 end
 
 Rake::PackageTask.new(plugin['name']) do |p|
